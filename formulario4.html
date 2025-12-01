@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita - Pago</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        :root {
+            --cosevi-yellow: #FFD84D;
+            --cosevi-dark: #1A1A1A;
+            --cosevi-blue-btn: #0088FF;
+            --cosevi-text-gray: #495057;
+            --cosevi-border-gray: #ced4da;
+            --cosevi-light-gray: #f8f8f8;
+            --cosevi-green-completed: #28a745;
+            --cosevi-green-pay: #28a745; 
+            --cosevi-red-error: #dc3545; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cosevi-light-gray);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .main-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .top-banner {
+            background-color: var(--cosevi-yellow);
+            padding: 1.5rem 2rem;
+            color: var(--cosevi-dark);
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .top-banner img {
+            height: 35px;
+            margin-right: 0.75rem;
+        }
+
+        .steps-banner {
+            background-color: var(--cosevi-yellow);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--cosevi-dark);
+        }
+
+        .steps-banner::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 10rem);
+            height: 4px;
+            background-color: var(--cosevi-dark);
+            z-index: 1;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .step-icon-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--cosevi-dark);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            border: 2px solid var(--cosevi-dark);
+        }
+        
+        .step-icon-circle.completed {
+            background-color: var(--cosevi-green-completed);
+            border-color: var(--cosevi-green-completed);
+            color: white;
+        }
+
+        .step-icon-circle.inactive {
+            background-color: transparent;
+            color: var(--cosevi-dark);
+            border: 2px solid var(--cosevi-dark);
+        }
+
+        .step-item.active .step-icon-circle {
+            background-color: white;
+            color: var(--cosevi-dark);
+            border-color: var(--cosevi-dark);
+        }
+
+        .content-area {
+            padding: 2.5rem;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .payment-form-container {
+            flex: 1;
+        }
+
+        .card-form-box {
+            border: 1px solid var(--cosevi-border-gray);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-width: 400px;
+        }
+
+        .form-control-cosevi {
+            border: 1px solid var(--cosevi-border-gray);
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            background-color: #fff;
+            color: var(--cosevi-dark);
+        }
+        .form-control-cosevi:focus {
+            border-color: var(--cosevi-blue-btn);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .btn-cosevi-pay {
+            background-color: var(--cosevi-green-pay);
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            border: none;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        .btn-cosevi-pay:hover {
+            background-color: #1e7e34;
+            color: white;
+        }
+
+        #cvv {
+            max-width: 150px;
+        }
+
+        .content-image-container {
+            flex-shrink: 0;
+            width: 300px;
+            max-width: 40%;
+            height: auto;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .content-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .btn-cosevi-blue {
+            background-color: var(--cosevi-blue-btn);
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        .btn-cosevi-blue:hover:not(:disabled) {
+            background-color: #006ddb;
+            color: white;
+        }
+        .btn-cosevi-blue:disabled {
+            background-color: #a8cfff; 
+            cursor: not-allowed;
+            color: #ffffff;
+        }
+
+        .btn-cosevi-back {
+            background-color: transparent;
+            color: var(--cosevi-dark);
+            border: none;
+            font-size: 2.2rem;
+            padding: 0.5rem;
+            transition: color 0.2s;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-cosevi-back:hover {
+            color: var(--cosevi-blue-btn);
+        }
+
+        .payment-message {
+            padding: 0.75rem 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+        }
+        .payment-success {
+            background-color: #d4edda;
+            color: var(--cosevi-green-completed);
+            border: 1px solid #c3e6cb;
+        }
+        .payment-error {
+            background-color: #f8d7da;
+            color: var(--cosevi-red-error);
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                flex-direction: column;
+            }
+            .content-image-container {
+                width: 100%;
+                max-width: 100%;
+                height: 250px;
+                margin-top: 2rem;
+            }
+            .card-form-box {
+                max-width: 100%;
+            }
+            #cvv {
+                max-width: 100%;
+            }
+        }
+        @media (max-width: 576px) {
+            .steps-banner {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="main-card">
+        
+        <!-- Banner Superior: Agende su cita -->
+        <div class="top-banner">
+            <img src="imagenes/Captura de pantalla 2025-11-08 163208 (1).png" alt="Logo COSEVI">
+            <span>Agende su cita en línea en solo 5 pasos</span>
+        </div>
+
+        <!-- Banner de Pasos: Paso 4 Activo -->
+        <div class="steps-banner">
+            
+            <!-- Paso 1: Completado -->
+            <div class="step-item">
+                <div class="step-icon-circle completed">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <span class="step-label">Datos Personales</span>
+            </div>
+
+            <!-- Paso 2: Completado -->
+            <div class="step-item">
+                <div class="step-icon-circle completed">
+                    <i class="bi bi-calendar-check-fill"></i>
+                </div>
+                <span class="step-label">Fecha y Lugar</span>
+            </div>
+
+            <!-- Paso 3: Completado -->
+            <div class="step-item">
+                <div class="step-icon-circle completed">
+                    <i class="bi bi-file-earmark-check-fill"></i>
+                </div>
+                <span class="step-label">Verificación</span>
+            </div>
+
+            <!-- Paso 4: Activo (Pago) -->
+            <div class="step-item active">
+                <div class="step-icon-circle">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <span class="step-label">Pago</span>
+            </div>
+
+            <!-- Paso 5: Inactivo -->
+            <div class="step-item">
+                <div class="step-icon-circle inactive">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <span class="step-label">Confirmar Cita</span>
+            </div>
+
+        </div>
+
+        <!-- Contenido de Pago -->
+        <div class="content-area">
+            <div class="payment-form-container">
+                <h2 class="h4 mb-4 font-weight-bold" style="color: var(--cosevi-dark);">
+                    Confirmar Pago
+                </h2>
+
+                <p class="mb-1 text-secondary">
+                    Cita para Prueba Teórica
+                </p>
+                <p class="mb-1 text-secondary">
+                    15/11/2025
+                </p>
+                <h3 class="h5 mb-4 font-weight-bold" style="color: var(--cosevi-dark);">
+                    Monto a pagar: 5000&#8353;
+                </h3>
+
+                <div class="card-form-box">
+                    <form id="paymentForm">
+                        
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-cosevi" id="cardNumber" 
+                                placeholder="XXXX-XXXX-XXXX-XXXX" required
+                                pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}" 
+                                title="Formato: 1234-5678-9012-3456" maxlength="19">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-cosevi" id="cardHolder" 
+                                placeholder="Nombre completo del Titular" required>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between gap-3 mb-4">
+                            <div class="flex-grow-1">
+                                <input type="text" class="form-control form-control-cosevi" id="expiryDate" 
+                                    placeholder="MM/AA" required 
+                                    pattern="(0[1-9]|1[0-2])\/[0-9]{2}" title="Formato: MM/AA" maxlength="5">
+                            </div>
+                            
+                            <div>
+                                <input type="text" class="form-control form-control-cosevi" id="cvv" 
+                                    placeholder="CVV" required 
+                                    pattern="[0-9]{3,4}" title="3 o 4 dígitos" maxlength="4">
+                            </div>
+                        </div>
+
+                        <div id="payment-message" class="payment-message" style="display: none;"></div>
+
+                        <button type="submit" class="btn btn-cosevi-pay" id="payButton">
+                            PAGAR AHORA
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="d-flex justify-content-start align-items-center mt-5">
+                    
+                    <a href="formulario3.html" class="btn-cosevi-back me-3" role="button">
+                        <i class="bi bi-arrow-left-circle-fill"></i>
+                    </a>
+                    
+                    <a id="continueButton" href="formulario5.html" class="btn btn-cosevi-blue text-decoration-none" role="button" disabled>
+                        Continuar
+                    </a>
+                </div>
+            </div>
+
+            <div class="content-image-container d-none d-md-block">
+                <img src="imagenes/Captura de pantalla 2025-11-11 175011.png" alt="Persona realizando un pago en línea" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentForm = document.getElementById('paymentForm');
+            const continueButton = document.getElementById('continueButton');
+            const messageElement = document.getElementById('payment-message');
+            const cardNumberInput = document.getElementById('cardNumber');
+            const expiryDateInput = document.getElementById('expiryDate');
+
+            cardNumberInput.addEventListener('input', (event) => {
+                let value = cardNumberInput.value.replace(/\D/g, '');
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        formattedValue += '-';
+                    }
+                    formattedValue += value[i];
+                }
+                cardNumberInput.value = formattedValue.slice(0, 19);
+            });
+
+            expiryDateInput.addEventListener('input', (event) => {
+                let value = expiryDateInput.value.replace(/\D/g, '');
+                if (value.length > 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                expiryDateInput.value = value.slice(0, 5);
+            });
+
+            paymentForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                messageElement.style.display = 'none';
+                continueButton.disabled = true;
+
+                if (paymentForm.checkValidity()) {
+                    setTimeout(() => {
+                        messageElement.textContent = '¡Pago exitoso! Puede continuar al siguiente paso.';
+                        messageElement.classList.remove('payment-error');
+                        messageElement.classList.add('payment-success');
+                        messageElement.style.display = 'block';
+
+                        continueButton.disabled = false;
+
+                        document.querySelectorAll('#paymentForm input, #payButton').forEach(el => el.disabled = true);
+                        
+                    }, 1500);
+                    
+                } else {
+                    messageElement.textContent = 'Error: Por favor, complete todos los campos de la tarjeta correctamente.';
+                    messageElement.classList.remove('payment-success');
+                    messageElement.classList.add('payment-error');
+                    messageElement.style.display = 'block';
+                    
+                    continueButton.disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

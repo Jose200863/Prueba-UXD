@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita - Sede y Fecha</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --cosevi-yellow: #FFD84D;
+            --cosevi-dark: #1A1A1A;
+            --cosevi-blue-btn: #0088FF;
+            --cosevi-text-gray: #495057;
+            --cosevi-border-gray: #ced4da;
+            --cosevi-light-gray: #f8f8f8;
+            --cosevi-green-completed: #28a745;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cosevi-light-gray);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .main-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .top-banner {
+            background-color: var(--cosevi-yellow);
+            padding: 1.5rem 2rem;
+            color: var(--cosevi-dark);
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .top-banner img {
+            height: 35px;
+            margin-right: 0.75rem;
+        }
+
+        .steps-banner {
+            background-color: var(--cosevi-yellow);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--cosevi-dark);
+        }
+
+        .steps-banner::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 10rem);
+            height: 4px;
+            background-color: var(--cosevi-dark);
+            z-index: 1;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .step-icon-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--cosevi-dark);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            border: 2px solid var(--cosevi-dark);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .step-icon-circle.completed {
+            background-color: var(--cosevi-green-completed);
+            border-color: var(--cosevi-green-completed);
+            color: white;
+        }
+
+        .step-icon-circle.inactive {
+            background-color: transparent;
+            color: var(--cosevi-dark);
+            border: 2px solid var(--cosevi-dark);
+        }
+
+        .step-item.active .step-icon-circle {
+            background-color: white;
+            color: var(--cosevi-dark);
+            border-color: var(--cosevi-dark);
+        }
+
+        .step-item.active .step-label {
+            color: var(--cosevi-dark);
+        }
+
+        .form-content {
+            padding: 2.5rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .form-section {
+            flex: 1;
+        }
+
+        .form-label-cosevi {
+            font-weight: 600;
+            color: var(--cosevi-text-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control-cosevi,
+        .form-select-cosevi {
+            border: 1px solid var(--cosevi-border-gray);
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            background-color: #fff;
+            color: var(--cosevi-dark);
+        }
+
+        .form-control-cosevi:focus,
+        .form-select-cosevi:focus {
+            border-color: var(--cosevi-blue-btn);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .input-group-cosevi {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--cosevi-border-gray);
+            border-radius: 0.375rem;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .input-group-cosevi .form-control-cosevi {
+            border: none;
+            padding: 0.75rem 1rem;
+            height: auto;
+        }
+
+        .input-group-cosevi .input-group-text {
+            background-color: var(--cosevi-light-gray);
+            border: none;
+            padding: 0.75rem 1rem;
+            color: var(--cosevi-text-gray);
+        }
+
+        .form-image-container {
+            flex-shrink: 0;
+            width: 300px;
+            max-width: 40%;
+            height: auto;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .form-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .btn-cosevi-blue {
+            background-color: var(--cosevi-blue-btn);
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cosevi-blue:hover {
+            background-color: #006ddb;
+            color: white;
+        }
+
+        .btn-cosevi-back {
+            background-color: transparent;
+            color: var(--cosevi-dark);
+            border: none;
+            font-size: 2.2rem;
+            padding: 0.5rem;
+            transition: color 0.2s;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-cosevi-back:hover {
+            color: var(--cosevi-blue-btn);
+        }
+
+        @media (max-width: 768px) {
+            .form-content {
+                flex-direction: column;
+            }
+
+            .form-image-container {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                margin-top: 2rem;
+            }
+
+            .steps-banner::before {
+                width: calc(100% - 4rem);
+            }
+
+            .step-item {
+                font-size: 0.8rem;
+            }
+
+            .step-icon-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .map-container {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .steps-banner {
+                padding: 1rem;
+            }
+
+            .step-item {
+                font-size: 0.7rem;
+            }
+
+            .step-icon-circle {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .top-banner {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
+            .btn-cosevi-blue {
+                width: 100%;
+            }
+
+            .btn-cosevi-back {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-card">
+
+        <div class="top-banner">
+            <img src="imagenes/Captura de pantalla 2025-11-08 163208 (1).png" alt="Logo COSEVI">
+            <span>Agende su cita en línea en solo 5 pasos</span>
+        </div>
+
+        <div class="steps-banner">
+
+            <div class="step-item">
+                <div class="step-icon-circle completed">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <span class="step-label">Datos Personales</span>
+            </div>
+
+            <div class="step-item active">
+                <div class="step-icon-circle">
+                    <i class="bi bi-calendar-check-fill"></i>
+                </div>
+                <span class="step-label">Fecha y Lugar</span>
+            </div>
+
+            <div class="step-item">
+                <div class="step-icon-circle inactive">
+                    <i class="bi bi-file-earmark-check-fill"></i>
+                </div>
+                <span class="step-label">Verificación</span>
+            </div>
+
+            <div class="step-item">
+                <div class="step-icon-circle inactive">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <span class="step-label">Pago</span>
+            </div>
+
+            <div class="step-item">
+                <div class="step-icon-circle inactive">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <span class="step-label">Confirmar Cita</span>
+            </div>
+
+        </div>
+
+        <div class="form-content">
+            <div class="form-section">
+                <h2 class="h5 mb-4 text-secondary font-weight-normal">
+                    Seleccione sede y fecha de su preferencia
+                </h2>
+
+                <form>
+                    <div class="mb-4">
+                        <label for="sedeSelect" class="form-label form-label-cosevi">Sede:</label>
+                        <div class="map-container mb-3">
+                            <img src="imagenes/Imagen de WhatsApp 2025-11-11 a las 18.59.11_25bafdf6 (1).png"
+                                alt="Mapa de Costa Rica con sedes" width="190" height="190" class="me-2">
+                        </div>
+                        <div class="input-group-cosevi">
+                            <select class="form-select form-select-cosevi" id="sedeSelect" required>
+                                <option selected disabled value="">Seleccione una sede...</option>
+                                <option value="puntarenas">Puntarenas</option>
+                                <option value="sanjose">San José</option>
+                                <option value="limon">Limón</option>
+                                <option value="heredia">Heredia</option>
+                            </select>
+                            <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="newDate" class="form-label form-label-cosevi">Fecha:</label>
+                        <div class="input-group-cosevi">
+                            <input type="date" class="form-control form-control-cosevi" id="newDate" required
+                                min="2025-11-16">
+                            <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="newTime" class="form-label form-label-cosevi">Hora:</label>
+                        <div class="input-group-cosevi">
+                            <input type="time" class="form-control form-control-cosevi" id="newTime" required>
+                            <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-5">
+                        <a href="formulario1.html" class="btn-cosevi-back" role="button">
+                            <i class="bi bi-arrow-left-circle-fill"></i>
+                            <a href="formulario3.html" class="btn btn-cosevi-blue text-decoration-none" role="button">
+                                Continuar
+                            </a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-image-container d-none d-md-block">
+                <img src="imagenes/Captura de pantalla 2025-11-11 175011.png" alt="Hombre trabajando en computadora"
+                    class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
