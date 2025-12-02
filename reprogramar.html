@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reprogramar Cita - COSEVI</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --cosevi-yellow: #FFD84D;
+            --cosevi-dark: #1A1A1A;
+            --cosevi-blue: #0088FF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
+        .header-cosevi {
+            background-color: var(--cosevi-yellow);
+            width: 100%;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .header-cosevi h1 {
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--cosevi-dark);
+            margin-left: 1rem;
+            text-transform: uppercase;
+        }
+
+        .reprogram-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            border: 2px solid #ddd;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            width: 95%;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .cita-details-card {
+            background-color: #f7f7f7;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .cita-details-card .label {
+            font-weight: 700;
+            color: var(--cosevi-dark);
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .cita-details-card .value {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .input-group-custom {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ced4da;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: white;
+            height: 48px;
+        }
+
+        .input-group-custom input {
+            border: none;
+            padding: 0.75rem 1rem;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+            background: transparent;
+        }
+
+        .icon-span {
+            padding: 0 0.75rem;
+            color: #495057;
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-confirmar {
+            background-color: var(--cosevi-blue);
+            color: white;
+            font-weight: 800;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            width: 100%;
+            border: none;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+        }
+
+        .btn-confirmar:hover:not(:disabled) {
+            background-color: #0066cc;
+        }
+
+        .btn-confirmar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .warning-message {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header-cosevi">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 16H9V8H11V16ZM15 16H13V8H15V16Z"
+                fill="#1A1A1A" />
+        </svg>
+        <h1>REPROGRAMAR CITA</h1>
+    </header>
+
+    <!-- MAIN -->
+    <div class="reprogram-container">
+
+        <h2 class="text-xl font-semibold mb-6 text-gray-700">
+            Elija su nueva fecha y hora a agendar
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6 items-start">
+
+            <!-- DETALLES -->
+            <div class="cita-details-card">
+                <h3 class="font-bold text-lg mb-3 text-gray-800 border-b pb-2 border-gray-300">
+                    Detalles de Cita Actual
+                </h3>
+
+                <div class="flex mb-2">
+                    <span class="label">Tipo de Prueba:</span>
+                    <span class="value">Prueba Teórica de Licencia</span>
+                </div>
+
+                <div class="flex mb-2">
+                    <span class="label">Fecha y Hora:</span>
+                    <span class="value text-red-600 font-semibold">Lunes, 18 de Noviembre a las 10:00 AM</span>
+                </div>
+
+                <div class="flex mb-2">
+                    <span class="label">Sede:</span>
+                    <span class="value">COSEVI, Sede la Uruca</span>
+                </div>
+
+                <div class="flex mb-1">
+                    <span class="label">Costo pagado:</span>
+                    <span class="value">5000 ₡</span>
+                </div>
+            </div>
+
+            <!-- FORMULARIO -->
+            <form id="reprogramForm" onsubmit="handleReprogram(event)">
+
+                <div class="mb-4">
+                    <label class="block text-left font-medium mb-1 text-gray-700">Nueva Fecha:</label>
+                    <div class="input-group-custom">
+                        <input type="date" id="newDate" required onchange="checkFormValidity()">
+                        <span class="icon-span"><i class="bi bi-calendar-check"></i></span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-left font-medium mb-1 text-gray-700">Nueva Hora:</label>
+                    <div class="input-group-custom">
+                        <input type="time" id="newTime" required onchange="checkFormValidity()">
+                        <span class="icon-span"><i class="bi bi-clock"></i></span>
+                    </div>
+                </div>
+
+                <button type="submit" id="confirmButton" class="btn-confirmar" disabled>
+                    SELECCIONE FECHA Y HORA
+                </button>
+
+            </form>
+        </div>
+
+        <p class="warning-message">
+            ¡Recuerde que una vez confirmada no puede cambiar de elección!
+        </p>
+    </div>
+
+    <script>
+        const dateInput = document.getElementById('newDate');
+        const timeInput = document.getElementById('newTime');
+        const confirmButton = document.getElementById('confirmButton');
+        const coseviBlue = '#0088FF';
+
+        function checkFormValidity() {
+            const ok = dateInput.value !== '' && timeInput.value !== '';
+            confirmButton.disabled = !ok;
+            confirmButton.textContent = ok
+                ? 'CONFIRMAR REPROGRAMACIÓN'
+                : 'SELECCIONE FECHA Y HORA';
+        }
+
+        function handleReprogram(event) {
+            event.preventDefault();
+            if (confirmButton.disabled) return;
+
+            const formattedDate = new Date(dateInput.value).toLocaleDateString(
+                'es-ES',
+                { year: 'numeric', month: 'long', day: 'numeric' }
+            );
+
+            Swal.fire({
+                title: '¡Cita Reprogramada con Éxito!',
+                html: `
+                    <div style="text-align:left">
+                        <p class="font-bold text-lg">Su nueva cita ha sido confirmada:</p>
+                        <ul style="list-style:none; padding:0">
+                            <li><b>Nueva Fecha:</b> ${formattedDate}</li>
+                            <li><b>Nueva Hora:</b> ${timeInput.value}</li>
+                            <li><b>Sede:</b> COSEVI, Sede la Uruca</li>
+                            <li class="text-sm text-red-500 mt-2">Recibirá una confirmación por correo electrónico.</li>
+                        </ul>
+                    </div>
+                `,
+                icon: 'success',
+                confirmButtonText: 'Continuar',
+                confirmButtonColor: coseviBlue
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            today.setDate(today.getDate() + 1);
+            dateInput.min = today.toISOString().split('T')[0];
+            checkFormValidity();
+        });
+    </script>
+
+</body>
+
+</html>

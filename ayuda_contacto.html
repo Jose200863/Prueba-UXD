@@ -1,0 +1,346 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda y Contacto - COSEVI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosevi-yellow: #FFD84D;
+            --cosevi-dark: #1A1A1A;
+            --cosevi-blue: #0088FF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .main-container {
+            padding: 0;
+        }
+
+        .navbar-top-yellow {
+            background-color: var(--cosevi-yellow) !important;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: none;
+        }
+
+        .navbar-brand .logo-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 0.75rem;
+        }
+
+        .navbar-title-cosevi {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--cosevi-dark);
+            margin-right: auto;
+        }
+
+        .navbar-title-page {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--cosevi-dark);
+            margin-left: 0;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .section-title-blue {
+            color: var(--cosevi-blue);
+            font-weight: 700;
+            border-bottom: 2px solid var(--cosevi-blue);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .accordion-item {
+            border: 1px solid #ddd;
+            margin-bottom: 0.75rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-header .accordion-button {
+            color: var(--cosevi-dark);
+            font-weight: 600;
+            background-color: #f7f7f7;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem !important;
+            font-size: 1.1rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--cosevi-dark);
+            background-color: #f0f0f0;
+            box-shadow: none;
+        }
+
+        .accordion-main-header {
+            background-color: transparent !important;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .accordion-main-button {
+            background-color: transparent !important;
+            color: var(--cosevi-blue) !important;
+            font-weight: 700 !important;
+            font-size: 1.8rem !important;
+            border-bottom: 2px solid var(--cosevi-blue) !important;
+            padding: 0 0 0.5rem 0 !important;
+            box-shadow: none !important;
+        }
+
+        .resource-link {
+            color: var(--cosevi-dark);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s;
+            padding: 0.5rem 0;
+        }
+
+        .resource-link:hover {
+            color: var(--cosevi-blue);
+        }
+
+        .contact-table {
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-table th,
+        .contact-table td {
+            padding: 0.75rem;
+            vertical-align: middle;
+        }
+
+        .contact-table th {
+            background-color: #f0f0f0;
+            font-weight: 700;
+        }
+
+        .contact-table tbody tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+
+        .contact-table h4 {
+            color: var(--cosevi-dark);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-custom {
+            background-color: var(--cosevi-dark);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .accordion-main-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230088FF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid p-0 main-container">
+
+        <nav class="navbar navbar-top-yellow shadow-sm">
+            <div class="container-xl d-flex align-items-center justify-content-between">
+
+                <a class="navbar-brand d-flex align-items-center" href="sistema_citas_cosevi.html">
+                    <img src="imagenes/Captura de pantalla 2025-11-08 163208 (1).png" alt="Logo COSEVI"
+                        class="logo-img">
+                    <span class="navbar-title-cosevi">COSEVI</span>
+                </a>
+
+                <h1 class="navbar-title-page m-0 me-md-5">Ayuda y Contacto</h1>
+            </div>
+        </nav>
+
+        <main class="container-xl py-5">
+            <div class="row g-5">
+
+                <div class="col-md-7">
+
+                    <div class="accordion" id="mainFaqAccordion">
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header accordion-main-header" id="headingFAQ">
+                                <button class="accordion-button accordion-main-button" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseFAQ" aria-expanded="true"
+                                    aria-controls="collapseFAQ">
+                                    Preguntas Frecuentes
+                                </button>
+                            </h2>
+                            <div id="collapseFAQ" class="accordion-collapse collapse show" aria-labelledby="headingFAQ"
+                                data-bs-parent="#mainFaqAccordion">
+                                <div class="accordion-body p-0">
+
+                                    <div class="accordion" id="subFaqTopics">
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingPago">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapsePago"
+                                                    aria-expanded="false" aria-controls="collapsePago">
+                                                    Preguntas sobre Pago
+                                                </button>
+                                            </h2>
+                                            <div id="collapsePago" class="accordion-collapse collapse"
+                                                aria-labelledby="headingPago" data-bs-parent="#subFaqTopics">
+                                                <div class="accordion-body">
+                                                    <p class="fw-bold mb-2">¿Puedo pagar el día de la Prueba?</p>
+                                                    <small class="d-block mb-3">No. El pago de las pruebas debe
+                                                        realizarse con antelación, generalmente a través de los bancos
+                                                        autorizados, antes de agendar su cita.</small>
+
+                                                    <p class="fw-bold mb-2">¿Qué hago si perdí mi recibo de pago?</p>
+                                                    <small class="d-block">Debe contactar a la entidad bancaria donde
+                                                        realizó el pago para solicitar una reimpresión o un comprobante
+                                                        digital.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingReprogramacion">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseReprogramacion"
+                                                    aria-expanded="false" aria-controls="collapseReprogramacion">
+                                                    Preguntas sobre Reprogramación y Cancelación
+                                                </button>
+                                            </h2>
+                                            <div id="collapseReprogramacion" class="accordion-collapse collapse"
+                                                aria-labelledby="headingReprogramacion" data-bs-parent="#subFaqTopics">
+                                                <div class="accordion-body">
+                                                    <p class="fw-bold mb-2">¿Cuánto tiempo tengo para cancelar o
+                                                        reprogramar mi cita?</p>
+                                                    <small class="d-block mb-3">El sistema permite la cancelación o
+                                                        reprogramación hasta con 48 horas de anticipación a la hora
+                                                        original de la cita.</small>
+
+                                                    <p class="fw-bold mb-2">¿Cómo se realiza el reembolso?</p>
+                                                    <small class="d-block">Los reembolsos se procesan automáticamente al
+                                                        cancelar la cita dentro del período permitido y el monto es
+                                                        acreditado a la cuenta asociada.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion mt-5" id="mainResourcesAccordion">
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header accordion-main-header" id="headingResources">
+                                <button class="accordion-button accordion-main-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseResources" aria-expanded="false"
+                                    aria-controls="collapseResources">
+                                    Recursos de Estudio
+                                </button>
+                            </h2>
+                            <div id="collapseResources" class="accordion-collapse collapse"
+                                aria-labelledby="headingResources" data-bs-parent="#mainResourcesAccordion">
+                                <div class="accordion-body p-0 pt-3">
+
+                                    <a href="#" class="resource-link text-decoration-none d-flex align-items-center">
+                                        Temario Oficial Prueba Teórica
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-download ms-2" viewBox="0 0 16 16">
+                                            <path
+                                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                                            <path
+                                                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="resource-link text-decoration-none d-flex align-items-center">
+                                        Videos de Apoyo para las pruebas
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-link-45deg ms-2" viewBox="0 0 16 16">
+                                            <path
+                                                d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829c.199-.199.199-.523 0-.722s-.523-.199-.722 0L7.15 10.826a2 2 0 1 1-2.83-2.829l1.827-1.828.707.707-.707.707zm-4.148-.542.853.854 1.828-1.829a3 3 0 1 1 4.243 4.243l-1.828 1.828-.707-.707.707-.707 1.829-1.828a2 2 0 1 0-2.829-2.828L.567 6z" />
+                                        </svg>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-5">
+                    <h2 class="section-title-blue mb-4">Información de Contacto</h2>
+
+                    <div class="contact-table mb-4">
+                        <table class="table table-striped m-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Sedes</th>
+                                    <th>Teléfono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>San José</td>
+                                    <td>2522-0815</td>
+                                </tr>
+                                <tr>
+                                    <td>Alajuela</td>
+                                    <td>2010-4765</td>
+                                </tr>
+                                <tr>
+                                    <td>Cartago</td>
+                                    <td>2010-4731</td>
+                                </tr>
+                                <tr>
+                                    <td>Liberia</td>
+                                    <td>2010-4698</td>
+                                </tr>
+                                <tr>
+                                    <td>Pacífico Central</td>
+                                    <td>2010-4639</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Horario de Atención:</h4>
+                    <p class="lead">Lunes a Viernes de 8:00 a.m. a 5:00 p.m</p>
+
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer-custom mt-5">
+            <div class="container-xl">
+                <p class="m-0">&copy; 2025 - COSEVI</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
